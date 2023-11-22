@@ -11,6 +11,26 @@ class _CounterScreenState extends State<CounterScreen> {
   // propiedad
   int counter = 10;
 
+  void operation(String operation) {
+    switch (operation) {
+      case '+':
+        counter++;
+        print('Seleccionaste la opción A');
+        break;
+      case '-':
+        counter--;
+        print('Seleccionaste la opción B');
+        break;
+      case 'reset':
+        counter = 0;
+        print('Seleccionaste la opción C');
+        break;
+      default:
+        print('Opción no válida');
+    }
+    setState(() {});
+  }
+
   @override
   Widget build(BuildContext context) {
     const customFont = TextStyle(fontSize: 30);
@@ -32,31 +52,37 @@ class _CounterScreenState extends State<CounterScreen> {
           ),
         ),
         floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
-        floatingActionButton: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          children: [
-            FloatingActionButton(
-              child: const Icon(Icons.exposure_plus_1_outlined),
-              onPressed: () {
-                counter++;
-                setState(() {}); // Redibuja el widget para detectar los cambios
-              },
-            ),
-            FloatingActionButton(
-              child: const Icon(Icons.exposure_outlined),
-              onPressed: () {
-                counter = 0;
-                setState(() {}); // Redibuja el widget para detectar los cambios
-              },
-            ),
-            FloatingActionButton(
-              child: const Icon(Icons.exposure_minus_1_outlined),
-              onPressed: () {
-                counter--;
-                setState(() {}); // Redibuja el widget para detectar los cambios
-              },
-            ),
-          ],
+        floatingActionButton: CustomFloatingActions(
+          operationFn: operation,
         ));
+  }
+}
+
+class CustomFloatingActions extends StatelessWidget {
+  final Function operationFn;
+
+  const CustomFloatingActions({
+    super.key,
+    required this.operationFn,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+      children: [
+        FloatingActionButton(
+          child: const Icon(Icons.exposure_plus_1_outlined),
+          onPressed: () => operationFn('+'),
+        ),
+        FloatingActionButton(
+          child: const Icon(Icons.exposure_outlined),
+          onPressed: () => operationFn('reset'),
+        ),
+        FloatingActionButton(
+            child: const Icon(Icons.exposure_minus_1_outlined),
+            onPressed: () => operationFn('-')),
+      ],
+    );
   }
 }
