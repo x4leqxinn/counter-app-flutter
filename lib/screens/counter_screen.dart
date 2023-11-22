@@ -33,7 +33,7 @@ class _CounterScreenState extends State<CounterScreen> {
         ),
         floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
         floatingActionButton: Row(
-          mainAxisAlignment: MainAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
             FloatingActionButton(
               child: const Icon(Icons.exposure_plus_1_outlined),
@@ -42,20 +42,12 @@ class _CounterScreenState extends State<CounterScreen> {
                 setState(() {}); // Redibuja el widget para detectar los cambios
               },
             ),
-            const SizedBox(
-              // Caja invisible para separar botones
-              width: 20,
-            ),
             FloatingActionButton(
               child: const Icon(Icons.exposure_outlined),
               onPressed: () {
                 counter = 0;
                 setState(() {}); // Redibuja el widget para detectar los cambios
               },
-            ),
-            const SizedBox(
-              // Caja invisible para separar botones
-              width: 20,
             ),
             FloatingActionButton(
               child: const Icon(Icons.exposure_minus_1_outlined),
